@@ -21,3 +21,5 @@
 go.work
 
 *.pem
+.envrc
+console-github-auth
