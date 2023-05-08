@@ -24,7 +24,7 @@ jobs:
 
       - name: Verify runner image
         run: cosign verify --certificate-identity ${{ env.BASEIMG_IDENTITY }} --certificate-oidc-issuer ${{ env.BASEIMG_ISSUER }} ${{ env.RUNNER_IMG }}
-      - uses: nais/platform-build-push-sign@d3b215be0e3d3f69a6c1e4638e8207221debc138 # ratchet:nais/platform-build-push-sign@main
+      - uses: nais/platform-build-push-sign@4dc5e4f38e5ed5ff444a3d7e09bf2bf3132c811f # ratchet:nais/platform-build-push-sign@main
         id: build_push_sign
         with:
           name: console-github-auth
