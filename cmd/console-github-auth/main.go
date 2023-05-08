@@ -63,6 +63,7 @@ func main() {
 			if err != nil {
 				log.Warnf("no GitHub installation found for org %v - aborting token creation. err: %v", githubOrg, err)
 				fmt.Fprintf(w, "no GitHub installation found. Please install the nais/console app in your GitHub org.")
+				w.WriteHeader(http.StatusBadRequest)
 				return
 			}
 		}
