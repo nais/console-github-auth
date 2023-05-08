@@ -1,7 +1,5 @@
 name: Build and push image
-on:
-  push
-
+on: push
 jobs:
   build_and_push:
     permissions:
@@ -26,8 +24,7 @@ jobs:
 
       - name: Verify runner image
         run: cosign verify --certificate-identity ${{ env.BASEIMG_IDENTITY }} --certificate-oidc-issuer ${{ env.BASEIMG_ISSUER }} ${{ env.RUNNER_IMG }}
-
-      - uses: nais/platform-build-push-sign@d5680102b2e7006e7b4184acc9604aa321176107 # ratchet:nais/platform-build-push-sign@main
+      - uses: nais/platform-build-push-sign@075f9d1106e1996789f038b9d7ea1f08dd7fd3c9 # ratchet:nais/platform-build-push-sign@main
         id: build_push_sign
         with:
           name: console-github-auth
