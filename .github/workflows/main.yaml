@@ -1,5 +1,7 @@
 name: Build and push image
+
 on: push
+
 jobs:
   build_and_push:
     permissions:
@@ -11,15 +13,14 @@ jobs:
       BASEIMG_IDENTITY: "https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main"
       BASEIMG_ISSUER: "https://token.actions.githubusercontent.com"
     steps:
-      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # ratchet:actions/checkout@v3
-
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # ratchet:actions/checkout@v3
       - name: Install cosign
-        uses: sigstore/cosign-installer@9e9de2292db7abb3f51b7f4808d98f0d347a8919 # ratchet:sigstore/cosign-installer@main
+        uses: sigstore/cosign-installer@1fc5bd396d372bee37d608f955b336615edf79c8 # ratchet:sigstore/cosign-installer@main
         with:
           cosign-release: 'v2.2.1'
       - name: Verify runner image
         run: cosign verify --certificate-identity ${{ env.BASEIMG_IDENTITY }} --certificate-oidc-issuer ${{ env.BASEIMG_ISSUER }} ${{ env.RUNNER_IMG }}
-      - uses: nais/platform-build-push-sign@4dc5e4f38e5ed5ff444a3d7e09bf2bf3132c811f # ratchet:nais/platform-build-push-sign@main
+      - uses: nais/platform-build-push-sign@c59f563da57e27f2f30defca0c20f51f629ff2cf # ratchet:nais/platform-build-push-sign@main
         id: build_push_sign
         with:
           name: console-github-auth
