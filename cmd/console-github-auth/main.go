@@ -87,7 +87,7 @@ func main() {
 
 	l, err := net.Listen("tcp", ":"+port)
 	if err != nil {
-		log.Error("create listener: %v", err)
+		log.WithError(err).Error("create listener")
 	}
 	log.Infof("listening on: %v", l.Addr().String())
 	if err := http.Serve(l, nil); err != nil && !errors.Is(err, http.ErrServerClosed) {
