@@ -20,7 +20,7 @@ jobs:
           cosign-release: 'v2.2.1'
       - name: Verify runner image
         run: cosign verify --certificate-identity ${{ env.BASEIMG_IDENTITY }} --certificate-oidc-issuer ${{ env.BASEIMG_ISSUER }} ${{ env.RUNNER_IMG }}
-      - uses: nais/platform-build-push-sign@c59f563da57e27f2f30defca0c20f51f629ff2cf # ratchet:nais/platform-build-push-sign@main
+      - uses: nais/platform-build-push-sign@main # ratchet:exclude
         id: build_push_sign
         with:
           name: console-github-auth
