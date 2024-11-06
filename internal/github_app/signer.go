@@ -3,7 +3,7 @@ package github_app
 import (
 	"crypto/rsa"
 
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 type Signer interface {
