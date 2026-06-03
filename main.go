@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/google/go-github/v66/github"
 	"github.com/nais/console-github-auth/internal/github_app"
@@ -26,7 +27,7 @@ func main() {
 	ctx := context.Background()
 	log := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 
-	githubPrivateKey, err := os.ReadFile(githubPrivateKeyPath)
+	githubPrivateKey, err := os.ReadFile(githubPrivateKeyPath) // #nosec G304 -- path from trusted env var
 	if err != nil {
 		log.
 			With("error", err, "path", githubPrivateKeyPath).
@@ -108,7 +109,10 @@ func main() {
 	}
 
 	log.Info("listening", "port", l.Addr().String())
-	if err := http.Serve(l, nil); err != nil && !errors.Is(err, http.ErrServerClosed) {
+	srv := &http.Server{
+		ReadHeaderTimeout: 10 * time.Second,
+	}
+	if err := srv.Serve(l); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		log.
 			With("error", err).
 			Error("error stopping server")
