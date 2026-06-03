@@ -47,7 +47,7 @@ jobs:
       id-token: "write"
     runs-on: ubuntu-latest
     env:
-      RUNNER_IMG: "gcr.io/distroless/base:nonroot"
+      RUNNER_IMG: "gcr.io/distroless/static-debian12:nonroot"
       BASEIMG_IDENTITY: "keyless@distroless.iam.gserviceaccount.com"
       BASEIMG_ISSUER: "https://accounts.google.com"
     steps:

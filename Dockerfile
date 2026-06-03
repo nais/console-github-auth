@@ -6,7 +6,7 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 go build -o console-github-auth .
 
-FROM gcr.io/distroless/base:nonroot
+FROM gcr.io/distroless/static-debian12:nonroot
 COPY --from=builder /src/console-github-auth /app/console-github-auth
 ENTRYPOINT ["/app/console-github-auth"]
 
