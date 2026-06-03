@@ -14,7 +14,6 @@ tool (
 require (
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/google/go-github/v66 v66.0.0
-	github.com/sirupsen/logrus v1.9.3
 )
 
 require (
@@ -55,6 +54,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/securego/gosec/v2 v2.27.1 // indirect
 	github.com/sethvargo/ratchet v0.11.4 // indirect
+	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/standard-webhooks/standard-webhooks/libraries v0.0.1 // indirect
 	github.com/tidwall/gjson v1.19.0 // indirect
 	github.com/tidwall/match v1.2.0 // indirect
