@@ -37,11 +37,20 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
       - uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # ratchet:jdx/mise-action@v4.0.1
       - run: mise run ${{ matrix.mise-task }}
+  branch-protection-checkpoint:
+    needs:
+      - checks
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - if: ${{ needs.checks.result != 'success' }}
+        run: exit 1
+      - run: echo "All checks and builds passed."
   build_and_push:
     if: github.ref == 'refs/heads/main'
     needs:
       - go-version
-      - checks
+      - branch-protection-checkpoint
     permissions:
       contents: "read"
       id-token: "write"
@@ -58,6 +67,8 @@ jobs:
         id: build_push_sign
         with:
           name: console-github-auth
+          build_args: |
+            GO_VERSION=${{ needs.go-version.outputs.go-version }}
           google_service_account: gh-console-github-auth
           push: ${{ github.actor != 'dependabot[bot]' }}
           workload_identity_provider: ${{ secrets.NAIS_IO_WORKLOAD_IDENTITY_PROVIDER }}
