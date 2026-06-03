@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/google/go-github/v66/github"
+	"github.com/google/go-github/v88/github"
 	"github.com/nais/console-github-auth/internal/github_app"
 )
 
@@ -51,7 +51,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	githubClient := github.NewClient(httpClient)
+	githubClient, err := github.NewClient(github.WithHTTPClient(httpClient))
+	if err != nil {
+		log.
+			With("error", err).
+			Error("create GitHub API client")
+	}
 
 	appInstallation, err := getAppInstallation(ctx, githubClient, githubOrg)
 	if err != nil {
@@ -123,6 +128,6 @@ func main() {
 }
 
 func getAppInstallation(ctx context.Context, client *github.Client, organization string) (*github.Installation, error) {
-	appInstallation, _, err := client.Apps.FindOrganizationInstallation(ctx, organization)
+	appInstallation, _, err := client.Apps.GetOrganizationInstallation(ctx, organization)
 	return appInstallation, err
 }
