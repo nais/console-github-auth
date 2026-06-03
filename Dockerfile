@@ -1,16 +1,12 @@
-FROM golang:1.23 as builder
-
-ENV GOOS=linux
+ARG GO_VERSION=1.26
+FROM golang:${GO_VERSION} AS builder
 WORKDIR /src
-
-COPY go.mod .
-COPY go.sum .
+COPY go.mod go.sum ./
 RUN go mod download
-
 COPY . .
-RUN CGO_ENABLED=0 go build -o console-github-auth ./cmd/console-github-auth/
+RUN CGO_ENABLED=0 go build -o console-github-auth .
 
-FROM cgr.dev/chainguard/static
+FROM gcr.io/distroless/base:nonroot
 COPY --from=builder /src/console-github-auth /app/console-github-auth
 ENTRYPOINT ["/app/console-github-auth"]
 
