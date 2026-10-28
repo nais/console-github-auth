@@ -2,5 +2,5 @@
 pin = true
 
 [tools]
-go = "1.26.5"
+go = "1.26.10"
 golangci-lint = "2.12.2"
