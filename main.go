@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/google/go-github/v88/github"
+	"github.com/google/go-github/v93/github"
 	"github.com/nais/console-github-auth/internal/github_app"
 )
 
@@ -105,7 +105,7 @@ func main() {
 		}
 	})
 
-	l, err := net.Listen("tcp", ":"+port)
+	l, err := net.Listen("tcp", ":"+port) // #nosec G102 -- Cloud Run requires all-interface binding; access is restricted by Cloud Run IAM.
 	if err != nil {
 		log.
 			With("error", err, "port", port).
